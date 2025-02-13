@@ -2,9 +2,12 @@ const express = require('express');
 const path = require('path');
 const app = express();
 
-// 정적 파일 제공
-app.use(express.static('public'));
-app.use(express.json());
+// 정적 파일 제공 설정
+app.use(express.static(path.join(__dirname, 'public'), {
+    maxAge: '0',
+    etag: false,
+    lastModified: false
+}));
 
 // API 라우트
 app.get('/api/health', (req, res) => {

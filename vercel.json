@@ -4,18 +4,29 @@
         {
             "src": "server.js",
             "use": "@vercel/node"
-        },
-        {
-            "src": "public/**",
-            "use": "@vercel/static"
         }
     ],
     "routes": [
         {
-            "src": "/styles.css",
+            "src": "/styles\\.css",
             "headers": {
-                "cache-control": "no-cache, no-store, must-revalidate"
-            }
+                "cache-control": "public, max-age=0, must-revalidate"
+            },
+            "dest": "/public/styles.css"
+        },
+        {
+            "src": "/examination\\.css",
+            "headers": {
+                "cache-control": "public, max-age=0, must-revalidate"
+            },
+            "dest": "/public/examination.css"
+        },
+        {
+            "src": "/examination\\.js",
+            "headers": {
+                "cache-control": "public, max-age=0, must-revalidate"
+            },
+            "dest": "/public/examination.js"
         },
         {
             "src": "/(.*)",
