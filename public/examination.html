@@ -18,66 +18,35 @@
                 </div>
                 <span class="progress-text">진행률: <span id="progress-percent">0</span>%</span>
             </div>
-            <div class="exam-content">
-                <div class="question-list">
-                    <div class="question-item active">
-                        <div class="question-number">질문 1/5</div>
-                        <p>최근 3개월 동안 기억력이 떨어진다고 느낀 적이 있습니까?</p>
-                        <div class="options">
-                            <button class="option-btn" data-value="1">예</button>
-                            <button class="option-btn" data-value="0">아니오</button>
-                        </div>
-                    </div>
-                    <div class="question-item">
-                        <div class="question-number">질문 2/5</div>
-                        <p>같은 질문을 반복해서 하거나, 같은 이야기를 반복하시나요?</p>
-                        <div class="options">
-                            <button class="option-btn" data-value="1">예</button>
-                            <button class="option-btn" data-value="0">아니오</button>
-                        </div>
-                    </div>
-                    <div class="question-item">
-                        <div class="question-number">질문 3/5</div>
-                        <p>오늘이 며칠인지, 지금이 몇 시인지 자주 잊어버리시나요?</p>
-                        <div class="options">
-                            <button class="option-btn" data-value="1">예</button>
-                            <button class="option-btn" data-value="0">아니오</button>
-                        </div>
-                    </div>
-                    <div class="question-item">
-                        <div class="question-number">질문 4/5</div>
-                        <p>물건을 놓은 곳을 자주 잊어버리시나요?</p>
-                        <div class="options">
-                            <button class="option-btn" data-value="1">예</button>
-                            <button class="option-btn" data-value="0">아니오</button>
-                        </div>
-                    </div>
-                    <div class="question-item">
-                        <div class="question-number">질문 5/5</div>
-                        <p>평소에 하시던 일상적인 일들이 갑자기 어렵게 느껴지시나요?</p>
-                        <div class="options">
-                            <button class="option-btn" data-value="1">예</button>
-                            <button class="option-btn" data-value="0">아니오</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="navigation-buttons">
-                    <button class="nav-btn back" onclick="history.back()">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M19 12H5M12 19l-7-7 7-7"/>
-                        </svg>
-                        <span>이전으로</span>
-                    </button>
-                    <button class="nav-btn next" onclick="calculateResults()">
-                        <span>결과 보기</span>
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M5 12h14M12 5l7 7-7 7"/>
-                        </svg>
-                    </button>
-                </div>
+            <div id="exam-content" class="exam-content">
+                <!-- 질문들은 JavaScript로 동적 생성됩니다 -->
+            </div>
+            <div class="navigation-buttons">
+                <button class="nav-btn back" onclick="history.back()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 12H5M12 19l-7-7 7-7"/>
+                    </svg>
+                    <span>이전으로</span>
+                </button>
+                <button id="next-btn" class="nav-btn next" onclick="handleNext()">
+                    <span>다음</span>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </button>
             </div>
         </div>
     </div>
+    <script>
+        // 질문 데이터
+        const questions = [
+            "최근 3개월 동안 기억력이 떨어진다고 느낀 적이 있습니까?",
+            "같은 질문을 반복해서 하거나, 같은 이야기를 반복하시나요?",
+            "오늘이 며칠인지, 지금이 몇 시인지 자주 잊어버리시나요?",
+            "물건을 놓은 곳을 자주 잊어버리시나요?",
+            "평소에 하시던 일상적인 일들이 갑자기 어렵게 느껴지시나요?"
+        ];
+    </script>
     <script src="/examination.js"></script>
 </body>
 </html> 
