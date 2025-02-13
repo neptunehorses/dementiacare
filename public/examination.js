@@ -47,43 +47,39 @@ function renderQuestion() {
             <div class="question-number">질문 ${currentQuestion + 1}/${questions.length}</div>
             <p>${questions[currentQuestion]}</p>
             <div class="options">
-                <button class="option-btn ${answers[currentQuestion] === 1 ? 'selected' : ''}" 
-                        onclick="selectAnswer(${currentQuestion}, 1)">예</button>
-                <button class="option-btn ${answers[currentQuestion] === 0 ? 'selected' : ''}" 
-                        onclick="selectAnswer(${currentQuestion}, 0)">아니오</button>
+                <button class="option-btn" onclick="selectAnswer(${currentQuestion}, 1)">예</button>
+                <button class="option-btn" onclick="selectAnswer(${currentQuestion}, 0)">아니오</button>
             </div>
         </div>
     `;
+
+    // 현재 질문에 대한 이전 답변이 있으면 버튼 스타일 복원
+    if (answers[currentQuestion] !== null) {
+        const buttons = document.querySelectorAll('.option-btn');
+        buttons[answers[currentQuestion] === 1 ? 0 : 1].classList.add('selected');
+    }
 }
 
 // 답변 선택 함수
 function selectAnswer(questionIndex, answer) {
     answers[questionIndex] = answer;
     
-    // 이전에 선택된 버튼의 스타일 초기화
-    if (selectedButtons[questionIndex] !== null) {
-        selectedButtons[questionIndex].classList.remove('selected');
-    }
-    
-    // 현재 선택된 버튼 스타일 적용
-    const buttons = document.querySelectorAll(`.question-item:nth-child(${questionIndex + 1}) .option-btn`);
-    buttons[answer].classList.add('selected');
-    selectedButtons[questionIndex] = buttons[answer];
+    // 버튼 스타일 업데이트
+    document.querySelectorAll('.option-btn').forEach(btn => {
+        btn.classList.remove('selected');
+    });
+    event.target.classList.add('selected');
 
     // 진행도 업데이트
     updateProgress();
-
-    // 자동으로 다음 질문으로 스크롤
-    if (questionIndex < 4) {
-        const nextQuestion = document.querySelectorAll('.question-item')[questionIndex + 1];
-        nextQuestion.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
 }
 
 // 다음 버튼 처리
 function handleNext() {
+    // 현재 질문에 답하지 않았으면 경고
     if (answers[currentQuestion] === null) {
         alert('질문에 답해주세요.');
+        document.querySelector('.question-item').style.animation = 'shake 0.5s';
         return;
     }
 
@@ -104,7 +100,7 @@ function handleNext() {
 
 // 초기화 함수
 function initializeExam() {
-    // 새로운 검사 시작을 위한 초기화
+    // 무조건 새로운 검사 시작
     localStorage.removeItem('examAnswers');
     localStorage.removeItem('examScore');
     localStorage.removeItem('examDate');
@@ -129,6 +125,4 @@ style.textContent = `
 document.head.appendChild(style);
 
 // 페이지 로드 시 실행
-document.addEventListener('DOMContentLoaded', () => {
-    initializeExam();  // 검사 시작할 때마다 새로 시작
-}); 
+document.addEventListener('DOMContentLoaded', initializeExam); 
