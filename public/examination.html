@@ -238,7 +238,7 @@
                 <!-- 질문들은 JavaScript로 동적 생성됩니다 -->
             </div>
             <div class="navigation-buttons">
-                <button class="nav-btn back" onclick="history.back()">
+                <button class="nav-btn back" onclick="handlePrev()">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M19 12H5M12 19l-7-7 7-7"/>
                     </svg>
@@ -309,6 +309,15 @@
                     </div>
                 </div>
             `;
+
+            // 이전 답변이 있으면 버튼 스타일 복원
+            if (answers[currentQuestion] !== null) {
+                const buttons = document.querySelectorAll('.option-btn');
+                buttons[answers[currentQuestion] === 1 ? 0 : 1].classList.add('selected');
+            }
+
+            // 다음 버튼 상태 업데이트
+            updateNextButton();
         }
 
         // 답변 선택 함수
@@ -321,6 +330,35 @@
                 btn.classList.remove('selected');
             });
             event.target.classList.add('selected');
+
+            // 다음 버튼 활성화
+            updateNextButton();
+        }
+
+        // 이전 버튼 처리 함수 추가
+        function handlePrev() {
+            if (currentQuestion === 0) {
+                // 첫 질문이면 메인 페이지로 이동
+                location.href = '/';
+            } else {
+                // 이전 질문으로
+                currentQuestion--;
+                renderQuestion();
+            }
+        }
+
+        // 다음 버튼 활성화/비활성화 처리
+        function updateNextButton() {
+            const nextBtn = document.getElementById('next-btn');
+            if (answers[currentQuestion] === null) {
+                nextBtn.disabled = true;
+                nextBtn.style.opacity = '0.5';
+                nextBtn.style.cursor = 'not-allowed';
+            } else {
+                nextBtn.disabled = false;
+                nextBtn.style.opacity = '1';
+                nextBtn.style.cursor = 'pointer';
+            }
         }
 
         // 다음 버튼 처리
