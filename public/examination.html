@@ -4,8 +4,224 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>치매 선별 검사</title>
-    <link rel="stylesheet" href="/styles.css">
-    <link rel="stylesheet" href="/examination.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            color: #4a4a4a;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .exam-box {
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 50px 40px;
+            border-radius: 40px;
+            box-shadow: 0 25px 50px -12px rgba(252, 182, 159, 0.25);
+            max-width: 800px;
+            width: 100%;
+            animation: fadeIn 1s ease-out;
+            backdrop-filter: blur(10px);
+        }
+
+        h1 {
+            color: #2c3e50;
+            font-size: 2em;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .progress-container {
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background-color: #fff1f1;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .progress {
+            height: 100%;
+            background: linear-gradient(45deg, #ff9a9e 0%, #fad0c4 100%);
+            width: 0;
+            transition: width 0.5s ease;
+            border-radius: 10px;
+        }
+
+        .progress-text {
+            color: #666;
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+
+        .question-item {
+            margin-bottom: 35px;
+            padding: 30px;
+            border-radius: 25px;
+            background-color: white;
+            border: 1px solid #ffe5e5;
+            opacity: 0.5;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+        }
+
+        .question-item.active {
+            opacity: 1;
+            transform: translateY(0);
+            box-shadow: 0 10px 25px -5px rgba(255, 154, 158, 0.2);
+        }
+
+        .question-number {
+            color: #ff9a9e;
+            font-size: 0.9em;
+            font-weight: 600;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .question-item p {
+            font-size: 1.2em;
+            color: #2c3e50;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .options {
+            display: flex;
+            gap: 15px;
+        }
+
+        .option-btn {
+            flex: 1;
+            padding: 18px 30px;
+            border: 2px solid #ffd1d1;
+            border-radius: 15px;
+            background-color: white;
+            color: #ff9a9e;
+            font-size: 1.1em;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .option-btn:hover {
+            background-color: #fff5f5;
+            transform: translateY(-3px);
+        }
+
+        .option-btn.selected {
+            background: linear-gradient(45deg, #ff9a9e 0%, #fad0c4 100%);
+            color: white;
+            border-color: transparent;
+            transform: scale(1.02);
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            gap: 20px;
+        }
+
+        .nav-btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 15px;
+            font-size: 1em;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-btn.back {
+            background-color: #fff5f5;
+            color: #ff9a9e;
+        }
+
+        .nav-btn.next {
+            background: linear-gradient(45deg, #ff9a9e 0%, #fad0c4 100%);
+            color: white;
+            box-shadow: 0 10px 20px -5px rgba(255, 154, 158, 0.5);
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-3px);
+        }
+
+        .nav-btn.next:hover {
+            box-shadow: 0 15px 25px -5px rgba(255, 154, 158, 0.6);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        @media (max-width: 600px) {
+            .exam-box {
+                padding: 30px 20px;
+                margin: 15px;
+                border-radius: 30px;
+            }
+
+            .question-item {
+                padding: 25px 20px;
+            }
+
+            .options {
+                flex-direction: column;
+            }
+
+            .option-btn {
+                width: 100%;
+            }
+
+            .navigation-buttons {
+                flex-direction: column;
+            }
+
+            .nav-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -47,6 +263,105 @@
             "평소에 하시던 일상적인 일들이 갑자기 어렵게 느껴지시나요?"
         ];
     </script>
-    <script src="/examination.js"></script>
+    <script>
+        let currentQuestion = 0;
+        let answers = new Array(questions.length).fill(null);
+
+        // 진행도 업데이트
+        function updateProgress() {
+            const answered = answers.filter(answer => answer !== null).length;
+            const progress = document.getElementById('progress');
+            const progressPercent = document.getElementById('progress-percent');
+            const percentage = (answered / questions.length) * 100;
+            
+            progress.style.width = `${percentage}%`;
+            progressPercent.textContent = Math.round(percentage);
+        }
+
+        // 질문 렌더링 함수
+        function renderQuestion() {
+            const examContent = document.getElementById('exam-content');
+            const nextBtn = document.getElementById('next-btn');
+            
+            // 마지막 질문인 경우 버튼 텍스트 변경
+            if (currentQuestion === questions.length - 1) {
+                nextBtn.innerHTML = `
+                    <span>결과 보기</span>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                `;
+            } else {
+                nextBtn.innerHTML = `
+                    <span>다음</span>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                `;
+            }
+
+            examContent.innerHTML = `
+                <div class="question-item active">
+                    <div class="question-number">질문 ${currentQuestion + 1}/${questions.length}</div>
+                    <p>${questions[currentQuestion]}</p>
+                    <div class="options">
+                        <button class="option-btn ${answers[currentQuestion] === 1 ? 'selected' : ''}" 
+                                onclick="selectAnswer(1)">예</button>
+                        <button class="option-btn ${answers[currentQuestion] === 0 ? 'selected' : ''}" 
+                                onclick="selectAnswer(0)">아니오</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        // 답변 선택 함수
+        function selectAnswer(value) {
+            answers[currentQuestion] = value;
+            updateProgress();
+            
+            // 버튼 스타일 업데이트
+            document.querySelectorAll('.option-btn').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            event.target.classList.add('selected');
+        }
+
+        // 다음 버튼 처리
+        function handleNext() {
+            if (answers[currentQuestion] === null) {
+                alert('질문에 답해주세요.');
+                return;
+            }
+
+            if (currentQuestion === questions.length - 1) {
+                // 마지막 질문이면 결과 페이지로 이동
+                const score = answers.reduce((sum, answer) => sum + answer, 0);
+                localStorage.setItem('examScore', score);
+                localStorage.setItem('examDate', new Date().toISOString());
+                localStorage.setItem('examAnswers', JSON.stringify(answers));
+                window.location.href = '/results';
+            } else {
+                // 다음 질문으로
+                currentQuestion++;
+                renderQuestion();
+                document.querySelector('.question-item').style.animation = 'fadeIn 0.5s ease-out';
+            }
+        }
+
+        // 초기화
+        document.addEventListener('DOMContentLoaded', () => {
+            // 저장된 답변 복원
+            const savedAnswers = localStorage.getItem('examAnswers');
+            if (savedAnswers) {
+                const parsedAnswers = JSON.parse(savedAnswers);
+                if (Array.isArray(parsedAnswers) && parsedAnswers.length === questions.length) {
+                    answers = parsedAnswers;
+                }
+            }
+            
+            renderQuestion();
+            updateProgress();
+        });
+    </script>
 </body>
 </html> 
