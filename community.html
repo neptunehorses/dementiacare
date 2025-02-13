@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>치매 케어 커뮤니티</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="community.css">
+</head>
+<body>
+    <div class="container">
+        <div class="community-box">
+            <h1>치매 케어 커뮤니티</h1>
+            <div class="board-container">
+                <div class="board-header">
+                    <button class="write-btn">글쓰기</button>
+                    <select class="category-select">
+                        <option value="all">전체</option>
+                        <option value="question">질문</option>
+                        <option value="share">경험공유</option>
+                        <option value="info">정보공유</option>
+                    </select>
+                </div>
+                <div class="post-list">
+                    <!-- 게시글은 JavaScript로 동적 생성됩니다 -->
+                </div>
+                <div class="pagination">
+                    <!-- 페이지네이션은 JavaScript로 동적 생성됩니다 -->
+                </div>
+            </div>
+            <!-- 검색 폼 추가 -->
+            <div class="search-box">
+                <input type="text" id="search-input" placeholder="검색어를 입력하세요">
+                <button onclick="search()">검색</button>
+            </div>
+        </div>
+    </div>
+    <script src="community.js"></script>
+</body>
+</html> 

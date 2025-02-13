@@ -1,0 +1,17 @@
+{
+    "name": "dementia-care",
+    "version": "1.0.0",
+    "description": "치매 케어 도우미",
+    "main": "server.js",
+    "scripts": {
+        "start": "node server.js",
+        "dev": "nodemon server.js",
+        "vercel-build": "echo hello"
+    },
+    "dependencies": {
+        "express": "^4.17.1"
+    },
+    "engines": {
+        "node": "14.x"
+    }
+} 

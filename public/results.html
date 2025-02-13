@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>검사 결과</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="results.css">
+    <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=여기에_클라이언트_ID입력&submodules=geocoder"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="results-box">
+            <h1>검사 결과</h1>
+            <div id="result-content" class="result-content">
+                <!-- 결과는 JavaScript로 삽입됩니다 -->
+            </div>
+            <div class="hospital-finder">
+                <h2>가까운 치매 전문병원 찾기</h2>
+                <div class="search-box">
+                    <select id="region-select" class="region-select">
+                        <option value="">지역을 선택하세요</option>
+                        <option value="서울">서울</option>
+                        <option value="경기">경기</option>
+                        <option value="인천">인천</option>
+                        <option value="부산">부산</option>
+                        <option value="대구">대구</option>
+                        <option value="광주">광주</option>
+                        <option value="대전">대전</option>
+                        <option value="울산">울산</option>
+                    </select>
+                    <button onclick="getCurrentLocation()" class="location-btn">
+                        현재 위치로 찾기
+                    </button>
+                </div>
+                <div id="map" class="map"></div>
+                <div id="hospital-list" class="hospital-list"></div>
+            </div>
+            <div class="action-buttons">
+                <button onclick="location.href='community.html'" class="action-btn">커뮤니티 방문하기</button>
+                <button onclick="location.href='care-guide.html'" class="action-btn">케어 가이드 보기</button>
+            </div>
+        </div>
+    </div>
+    <script src="results.js"></script>
+</body>
+</html> 

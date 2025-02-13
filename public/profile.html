@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>사용자 프로필</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="profile.css">
+</head>
+<body>
+    <div class="container">
+        <div class="profile-box">
+            <div class="profile-header">
+                <div class="profile-avatar">
+                    <img id="avatar" src="/default-avatar.png" alt="프로필 이미지">
+                </div>
+                <div class="profile-info">
+                    <h1 id="username"></h1>
+                    <p id="bio"></p>
+                    <p id="location"></p>
+                    <p id="join-date"></p>
+                </div>
+                <div class="profile-stats">
+                    <div class="stat-item">
+                        <span class="stat-value" id="follower-count">0</span>
+                        <span class="stat-label">팔로워</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value" id="following-count">0</span>
+                        <span class="stat-label">팔로잉</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value" id="post-count">0</span>
+                        <span class="stat-label">게시글</span>
+                    </div>
+                </div>
+                <div id="profile-actions"></div>
+            </div>
+            
+            <div class="profile-tabs">
+                <button class="tab-btn active" onclick="showTab('posts')">게시글</button>
+                <button class="tab-btn" onclick="showTab('bookmarks')">북마크</button>
+                <button class="tab-btn" onclick="showTab('likes')">좋아요</button>
+                <button class="tab-btn" onclick="showTab('stats')">활동 통계</button>
+                <button class="tab-btn" onclick="showTab('followers')">팔로워</button>
+                <button class="tab-btn" onclick="showTab('following')">팔로잉</button>
+            </div>
+            
+            <div id="tab-content" class="tab-content">
+                <!-- 탭 내용은 JavaScript로 삽입됩니다 -->
+            </div>
+        </div>
+    </div>
+    <script src="auth.js"></script>
+    <script src="profile.js"></script>
+</body>
+</html> 

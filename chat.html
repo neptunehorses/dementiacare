@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>채팅</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="chat.css">
+</head>
+<body>
+    <div class="container">
+        <div class="chat-container">
+            <div class="chat-list">
+                <div class="chat-list-header">
+                    <h2>채팅 목록</h2>
+                </div>
+                <div id="rooms-list" class="rooms-list">
+                    <!-- 채팅방 목록은 JavaScript로 삽입됩니다 -->
+                </div>
+            </div>
+            
+            <div class="chat-content">
+                <div id="chat-header" class="chat-header">
+                    <!-- 채팅방 정보는 JavaScript로 삽입됩니다 -->
+                </div>
+                <div id="messages" class="messages">
+                    <!-- 메시지는 JavaScript로 삽입됩니다 -->
+                </div>
+                <div class="message-input">
+                    <textarea id="message-text" placeholder="메시지를 입력하세요"></textarea>
+                    <button onclick="sendMessage()">전송</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="auth.js"></script>
+    <script src="chat.js"></script>
+</body>
+</html> 

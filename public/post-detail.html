@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시글 상세</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="post-detail.css">
+</head>
+<body>
+    <div class="container">
+        <div class="post-detail-box">
+            <div id="post-content" class="post-content">
+                <!-- 게시글 내용은 JavaScript로 삽입됩니다 -->
+            </div>
+            
+            <div class="comment-section">
+                <h3>댓글</h3>
+                <div class="comment-form">
+                    <textarea id="comment-input" placeholder="댓글을 입력하세요"></textarea>
+                    <button onclick="submitComment()">댓글 작성</button>
+                </div>
+                <div id="comments-list" class="comments-list">
+                    <!-- 댓글은 JavaScript로 삽입됩니다 -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="auth.js"></script>
+    <script src="post-detail.js"></script>
+</body>
+</html> 
