@@ -54,11 +54,23 @@
                 <div id="hospital-list" class="hospital-list"></div>
             </div>
             <div class="action-buttons">
-                <button onclick="location.href='/examination'" class="action-btn retry">다시 검사하기</button>
+                <button onclick="resetAndRetakeExam()" class="action-btn retry">다시 검사하기</button>
                 <button onclick="location.href='/care-guide'" class="action-btn guide">케어 가이드</button>
             </div>
         </div>
     </div>
     <script src="/results.js"></script>
+    <script>
+    // 다시 검사하기 함수 추가
+    function resetAndRetakeExam() {
+        // 로컬 스토리지 초기화
+        localStorage.removeItem('examAnswers');
+        localStorage.removeItem('examScore');
+        localStorage.removeItem('examDate');
+        
+        // 검사 페이지로 이동
+        location.href = '/examination';
+    }
+    </script>
 </body>
 </html> 
