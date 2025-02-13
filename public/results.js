@@ -1,52 +1,29 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // 결과 데이터 가져오기
     const score = parseInt(localStorage.getItem('examScore')) || 0;
-    const examDate = new Date(localStorage.getItem('examDate')).toLocaleDateString();
+    const examDate = new Date(localStorage.getItem('examDate')).toLocaleDateString('ko-KR', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    });
+
+    // 결과 메시지 생성
     const resultContent = document.getElementById('result-content');
-    
     let resultHTML = '<div class="result-message">';
     
+    // 점수에 따른 결과 표시
     if (score >= 4) {
-        resultHTML += `
-            <div class="result-header warning">
-                <h2>전문의 상담이 필요할 수 있습니다</h2>
-                <p class="exam-date">검사일: ${examDate}</p>
-            </div>
-            <div class="result-detail">
-                <p>치매 위험이 있을 수 있으니, 가까운 치매안심센터나 신경과 전문의의 상담을 받아보시는 것을 권장드립니다.</p>
-                <div class="risk-level">
-                    <div class="risk-bar high"></div>
-                    <span>위험도: 높음</span>
-                </div>
-            </div>
-        `;
+        resultHTML += createResultSection('warning', '전문의 상담이 필요합니다', 
+            '치매 위험이 있을 수 있으니, 가까운 치매안심센터나 신경과 전문의의 상담을 받아보시는 것을 권장드립니다.', 
+            examDate, '높음', 'high');
     } else if (score >= 2) {
-        resultHTML += `
-            <div class="result-header caution">
-                <h2>주의가 필요합니다</h2>
-                <p class="exam-date">검사일: ${examDate}</p>
-            </div>
-            <div class="result-detail">
-                <p>현재는 심각한 수준은 아니지만, 정기적인 검진과 관리가 필요할 수 있습니다.</p>
-                <div class="risk-level">
-                    <div class="risk-bar medium"></div>
-                    <span>위험도: 중간</span>
-                </div>
-            </div>
-        `;
+        resultHTML += createResultSection('caution', '주의가 필요합니다', 
+            '현재는 심각한 수준은 아니지만, 정기적인 검진과 관리가 필요할 수 있습니다.', 
+            examDate, '중간', 'medium');
     } else {
-        resultHTML += `
-            <div class="result-header safe">
-                <h2>정상 범위입니다</h2>
-                <p class="exam-date">검사일: ${examDate}</p>
-            </div>
-            <div class="result-detail">
-                <p>현재는 특별한 이상이 없어 보입니다. 하지만 정기적인 건강검진을 권장드립니다.</p>
-                <div class="risk-level">
-                    <div class="risk-bar low"></div>
-                    <span>위험도: 낮음</span>
-                </div>
-            </div>
-        `;
+        resultHTML += createResultSection('safe', '정상 범위입니다', 
+            '현재는 특별한 이상이 없어 보입니다. 하지만 정기적인 건강검진을 권장드립니다.', 
+            examDate, '낮음', 'low');
     }
     
     resultHTML += `
@@ -57,7 +34,40 @@ document.addEventListener('DOMContentLoaded', function() {
     </div>`;
     
     resultContent.innerHTML = resultHTML;
+
+    // 결과 섹션 애니메이션
+    setTimeout(() => {
+        document.querySelector('.result-message').style.opacity = '1';
+        document.querySelector('.risk-bar').style.width = getBarWidth(score);
+    }, 100);
+
+    // 지도 초기화
+    initMap();
 });
+
+// 결과 섹션 HTML 생성
+function createResultSection(type, title, message, date, riskLevel, riskClass) {
+    return `
+        <div class="result-header ${type}">
+            <h2>${title}</h2>
+            <p class="exam-date">검사일: ${date}</p>
+        </div>
+        <div class="result-detail">
+            <p>${message}</p>
+            <div class="risk-level">
+                <div class="risk-bar ${riskClass}"></div>
+                <span>위험도: ${riskLevel}</span>
+            </div>
+        </div>
+    </div>`;
+}
+
+// 위험도 바 너비 계산
+function getBarWidth(score) {
+    if (score >= 4) return '90%';
+    if (score >= 2) return '60%';
+    return '30%';
+}
 
 // 네이버 지도 관련 변수
 let map;
@@ -67,7 +77,11 @@ let markers = [];
 function initMap() {
     map = new naver.maps.Map('map', {
         center: new naver.maps.LatLng(37.5665, 126.9780), // 서울 중심
-        zoom: 13
+        zoom: 13,
+        zoomControl: true,
+        zoomControlOptions: {
+            position: naver.maps.Position.TOP_RIGHT
+        }
     });
 }
 

@@ -3,68 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>간단한 치매 검사</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="examination.css">
+    <title>치매 검사</title>
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/examination.css">
 </head>
 <body>
     <div class="container">
         <div class="exam-box">
-            <h1>간단한 치매 선별 검사</h1>
+            <h1>치매 선별 검사</h1>
             <div class="progress-bar">
                 <div class="progress" id="progress"></div>
             </div>
             <div class="exam-content">
-                <p>아래 질문들에 답해주세요:</p>
                 <div class="question-list">
                     <div class="question-item">
                         <div class="question-number">질문 1/5</div>
-                        <p>오늘이 몇 월 며칠인지 기억하시나요?</p>
+                        <p>최근 3개월 동안 기억력이 떨어진다고 느낀 적이 있습니까?</p>
                         <div class="options">
-                            <button class="option-btn" onclick="selectAnswer(0, 0)">예</button>
-                            <button class="option-btn" onclick="selectAnswer(0, 1)">아니오</button>
+                            <button class="option-btn" onclick="selectAnswer(0, 1)">예</button>
+                            <button class="option-btn" onclick="selectAnswer(0, 0)">아니오</button>
                         </div>
                     </div>
                     <div class="question-item">
                         <div class="question-number">질문 2/5</div>
-                        <p>최근에 물건을 자주 잃어버리시나요?</p>
+                        <p>같은 질문을 반복해서 하거나, 같은 이야기를 반복하시나요?</p>
                         <div class="options">
-                            <button class="option-btn" onclick="selectAnswer(1, 0)">예</button>
-                            <button class="option-btn" onclick="selectAnswer(1, 1)">아니오</button>
+                            <button class="option-btn" onclick="selectAnswer(1, 1)">예</button>
+                            <button class="option-btn" onclick="selectAnswer(1, 0)">아니오</button>
                         </div>
                     </div>
                     <div class="question-item">
                         <div class="question-number">질문 3/5</div>
-                        <p>익숙한 장소에서도 길을 헤매신 적이 있나요?</p>
+                        <p>오늘이 며칠인지, 지금이 몇 시인지 자주 잊어버리시나요?</p>
                         <div class="options">
-                            <button class="option-btn" onclick="selectAnswer(2, 0)">예</button>
-                            <button class="option-btn" onclick="selectAnswer(2, 1)">아니오</button>
+                            <button class="option-btn" onclick="selectAnswer(2, 1)">예</button>
+                            <button class="option-btn" onclick="selectAnswer(2, 0)">아니오</button>
                         </div>
                     </div>
                     <div class="question-item">
                         <div class="question-number">질문 4/5</div>
-                        <p>간단한 계산이나 돈 계산이 어려워지셨나요?</p>
+                        <p>물건을 놓은 곳을 자주 잊어버리시나요?</p>
                         <div class="options">
-                            <button class="option-btn" onclick="selectAnswer(3, 0)">예</button>
-                            <button class="option-btn" onclick="selectAnswer(3, 1)">아니오</button>
+                            <button class="option-btn" onclick="selectAnswer(3, 1)">예</button>
+                            <button class="option-btn" onclick="selectAnswer(3, 0)">아니오</button>
                         </div>
                     </div>
                     <div class="question-item">
                         <div class="question-number">질문 5/5</div>
-                        <p>평소 하시던 일들이 갑자기 어렵게 느껴지시나요?</p>
+                        <p>평소에 하시던 일상적인 일들이 갑자기 어렵게 느껴지시나요?</p>
                         <div class="options">
-                            <button class="option-btn" onclick="selectAnswer(4, 0)">예</button>
-                            <button class="option-btn" onclick="selectAnswer(4, 1)">아니오</button>
+                            <button class="option-btn" onclick="selectAnswer(4, 1)">예</button>
+                            <button class="option-btn" onclick="selectAnswer(4, 0)">아니오</button>
                         </div>
                     </div>
                 </div>
                 <div class="navigation-buttons">
-                    <button onclick="location.href='index.html'" class="nav-btn">처음으로</button>
-                    <button onclick="calculateResults()" class="nav-btn">결과 보기</button>
+                    <button onclick="location.href='/'" class="nav-btn back">처음으로</button>
+                    <button onclick="calculateResults()" class="nav-btn next">결과 보기</button>
                 </div>
             </div>
         </div>
     </div>
-    <script src="examination.js"></script>
+    <script src="/examination.js"></script>
 </body>
 </html> 
