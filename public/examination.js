@@ -10,15 +10,18 @@ function updateProgress() {
 }
 
 // 답변 선택
-function selectAnswer(questionIndex, answer) {
-    answers[questionIndex] = answer;
-    
+function selectAnswer(questionIndex, value) {
     // 이전 선택 초기화
-    const buttons = document.querySelectorAll(`.question-item:nth-child(${questionIndex + 1}) .option-btn`);
+    const questionItem = document.querySelectorAll('.question-item')[questionIndex];
+    const buttons = questionItem.querySelectorAll('.option-btn');
     buttons.forEach(btn => btn.classList.remove('selected'));
     
     // 현재 선택 표시
-    buttons[answer === 1 ? 0 : 1].classList.add('selected');
+    const selectedButton = value === 1 ? buttons[0] : buttons[1];
+    selectedButton.classList.add('selected');
+    
+    // 답변 저장
+    answers[questionIndex] = value;
     
     // 진행도 업데이트
     updateProgress();
@@ -49,7 +52,7 @@ function calculateResults() {
     }
 
     // 점수 계산 (예=1점)
-    const score = answers.filter(answer => answer === 1).length;
+    const score = answers.reduce((total, answer) => total + answer, 0);
     
     // 결과 저장
     localStorage.setItem('examScore', score);
@@ -57,7 +60,7 @@ function calculateResults() {
     localStorage.setItem('examAnswers', JSON.stringify(answers));
     
     // 결과 페이지로 이동
-    location.href = '/results';
+    window.location.href = '/results';
 }
 
 // 페이지 로드 시 실행
@@ -82,19 +85,14 @@ document.addEventListener('DOMContentLoaded', function() {
     // 초기 진행도 표시
     updateProgress();
     
-    // 키보드 네비게이션 추가
-    document.addEventListener('keydown', function(e) {
-        const activeQuestion = Math.floor(window.scrollY / window.innerHeight);
-        
-        if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
-            if (activeQuestion < 4) {
-                questions[activeQuestion + 1].scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }
-        } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
-            if (activeQuestion > 0) {
-                questions[activeQuestion - 1].scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }
-        }
+    // 버튼 클릭 이벤트 리스너 추가
+    document.querySelectorAll('.option-btn').forEach(button => {
+        button.addEventListener('click', function(e) {
+            const questionItem = this.closest('.question-item');
+            const questionIndex = Array.from(document.querySelectorAll('.question-item')).indexOf(questionItem);
+            const value = this.textContent.trim() === '예' ? 1 : 0;
+            selectAnswer(questionIndex, value);
+        });
     });
 });
 
