@@ -5,15 +5,27 @@ let currentQuestionIndex = 0;
 function updateProgress() {
     const answered = answers.filter(answer => answer !== null).length;
     const progress = document.getElementById('progress');
+    const progressPercent = document.getElementById('progress-percent');
     const percentage = (answered / 5) * 100;
+    
     progress.style.width = `${percentage}%`;
+    progressPercent.textContent = Math.round(percentage);
+}
+
+// 질문 활성화 상태 업데이트
+function updateActiveQuestion(index) {
+    document.querySelectorAll('.question-item').forEach((item, i) => {
+        item.classList.toggle('active', i === index);
+    });
 }
 
 // 답변 선택
 function selectAnswer(questionIndex, value) {
+    const questionItems = document.querySelectorAll('.question-item');
+    const currentQuestion = questionItems[questionIndex];
+    const buttons = currentQuestion.querySelectorAll('.option-btn');
+    
     // 이전 선택 초기화
-    const questionItem = document.querySelectorAll('.question-item')[questionIndex];
-    const buttons = questionItem.querySelectorAll('.option-btn');
     buttons.forEach(btn => btn.classList.remove('selected'));
     
     // 현재 선택 표시
@@ -26,11 +38,13 @@ function selectAnswer(questionIndex, value) {
     // 진행도 업데이트
     updateProgress();
     
-    // 자동 스크롤 (마지막 질문이 아닌 경우)
+    // 다음 질문으로 자동 스크롤 (마지막 질문이 아닌 경우)
     if (questionIndex < 4) {
         setTimeout(() => {
-            const nextQuestion = document.querySelectorAll('.question-item')[questionIndex + 1];
+            currentQuestionIndex = questionIndex + 1;
+            const nextQuestion = questionItems[currentQuestionIndex];
             nextQuestion.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            updateActiveQuestion(currentQuestionIndex);
         }, 500);
     }
 }
@@ -46,7 +60,13 @@ function calculateResults() {
         alert('모든 질문에 답해주세요.');
         
         // 미답변 질문으로 스크롤
+        currentQuestionIndex = unansweredIndex;
         unansweredQuestion.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        updateActiveQuestion(unansweredIndex);
+        
+        // 흔들림 효과
+        unansweredQuestion.style.animation = 'none';
+        unansweredQuestion.offsetHeight; // 리플로우 트리거
         unansweredQuestion.style.animation = 'shake 0.5s ease-in-out';
         return;
     }
@@ -76,22 +96,32 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // 질문 순차적 애니메이션
-    const questions = document.querySelectorAll('.question-item');
-    questions.forEach((question, index) => {
-        question.style.animationDelay = `${index * 0.2}s`;
-    });
-    
-    // 초기 진행도 표시
-    updateProgress();
+    // 첫 번째 질문 활성화
+    updateActiveQuestion(0);
     
     // 버튼 클릭 이벤트 리스너 추가
     document.querySelectorAll('.option-btn').forEach(button => {
-        button.addEventListener('click', function(e) {
+        button.addEventListener('click', function() {
             const questionItem = this.closest('.question-item');
             const questionIndex = Array.from(document.querySelectorAll('.question-item')).indexOf(questionItem);
-            const value = this.textContent.trim() === '예' ? 1 : 0;
+            const value = parseInt(this.dataset.value);
             selectAnswer(questionIndex, value);
+        });
+    });
+
+    // 스크롤 이벤트로 활성 질문 업데이트
+    window.addEventListener('scroll', function() {
+        const questions = document.querySelectorAll('.question-item');
+        const windowMiddle = window.scrollY + window.innerHeight / 2;
+        
+        questions.forEach((question, index) => {
+            const rect = question.getBoundingClientRect();
+            const questionMiddle = rect.top + rect.height / 2;
+            
+            if (Math.abs(questionMiddle - window.innerHeight / 2) < rect.height / 2) {
+                currentQuestionIndex = index;
+                updateActiveQuestion(index);
+            }
         });
     });
 });

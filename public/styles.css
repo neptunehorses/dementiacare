@@ -120,4 +120,13 @@ p {
         font-size: 1.1em;
         justify-content: center;
     }
+}
+
+.version {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    font-size: 0.8em;
+    color: #666;
+    opacity: 0.8;
 } 
