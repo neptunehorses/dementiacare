@@ -1,12 +1,13 @@
 let currentQuestion = 0;
-let answers = new Array(questions.length).fill(null);
+let answers = new Array(5).fill(null);
+let selectedButtons = new Array(5).fill(null);
 
 // 진행도 업데이트
 function updateProgress() {
     const answered = answers.filter(answer => answer !== null).length;
     const progress = document.getElementById('progress');
     const progressPercent = document.getElementById('progress-percent');
-    const percentage = (answered / questions.length) * 100;
+    const percentage = (answered / 5) * 100;
     
     progress.style.width = `${percentage}%`;
     progressPercent.textContent = Math.round(percentage);
@@ -47,24 +48,36 @@ function renderQuestion() {
             <p>${questions[currentQuestion]}</p>
             <div class="options">
                 <button class="option-btn ${answers[currentQuestion] === 1 ? 'selected' : ''}" 
-                        onclick="selectAnswer(1)">예</button>
+                        onclick="selectAnswer(${currentQuestion}, 1)">예</button>
                 <button class="option-btn ${answers[currentQuestion] === 0 ? 'selected' : ''}" 
-                        onclick="selectAnswer(0)">아니오</button>
+                        onclick="selectAnswer(${currentQuestion}, 0)">아니오</button>
             </div>
         </div>
     `;
 }
 
 // 답변 선택 함수
-function selectAnswer(value) {
-    answers[currentQuestion] = value;
-    updateProgress();
+function selectAnswer(questionIndex, answer) {
+    answers[questionIndex] = answer;
     
-    // 버튼 스타일 업데이트
-    document.querySelectorAll('.option-btn').forEach(btn => {
-        btn.classList.remove('selected');
-    });
-    event.target.classList.add('selected');
+    // 이전에 선택된 버튼의 스타일 초기화
+    if (selectedButtons[questionIndex] !== null) {
+        selectedButtons[questionIndex].classList.remove('selected');
+    }
+    
+    // 현재 선택된 버튼 스타일 적용
+    const buttons = document.querySelectorAll(`.question-item:nth-child(${questionIndex + 1}) .option-btn`);
+    buttons[answer].classList.add('selected');
+    selectedButtons[questionIndex] = buttons[answer];
+
+    // 진행도 업데이트
+    updateProgress();
+
+    // 자동으로 다음 질문으로 스크롤
+    if (questionIndex < 4) {
+        const nextQuestion = document.querySelectorAll('.question-item')[questionIndex + 1];
+        nextQuestion.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
 }
 
 // 다음 버튼 처리
@@ -89,20 +102,20 @@ function handleNext() {
     }
 }
 
-// 초기화
-document.addEventListener('DOMContentLoaded', () => {
-    // 저장된 답변 복원
-    const savedAnswers = localStorage.getItem('examAnswers');
-    if (savedAnswers) {
-        const parsedAnswers = JSON.parse(savedAnswers);
-        if (Array.isArray(parsedAnswers) && parsedAnswers.length === questions.length) {
-            answers = parsedAnswers;
-        }
-    }
+// 초기화 함수
+function initializeExam() {
+    // 새로운 검사 시작을 위한 초기화
+    localStorage.removeItem('examAnswers');
+    localStorage.removeItem('examScore');
+    localStorage.removeItem('examDate');
+    
+    currentQuestion = 0;
+    answers = new Array(5).fill(null);
+    selectedButtons = new Array(5).fill(null);
     
     renderQuestion();
     updateProgress();
-});
+}
 
 // 흔들림 애니메이션 스타일 추가
 const style = document.createElement('style');
@@ -113,4 +126,9 @@ style.textContent = `
         75% { transform: translateX(10px); }
     }
 `;
-document.head.appendChild(style); 
+document.head.appendChild(style);
+
+// 페이지 로드 시 실행
+document.addEventListener('DOMContentLoaded', () => {
+    initializeExam();  // 검사 시작할 때마다 새로 시작
+}); 

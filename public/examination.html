@@ -305,18 +305,16 @@
                     <div class="question-number">질문 ${currentQuestion + 1}/${questions.length}</div>
                     <p>${questions[currentQuestion]}</p>
                     <div class="options">
-                        <button class="option-btn ${answers[currentQuestion] === 1 ? 'selected' : ''}" 
-                                onclick="selectAnswer(1)">예</button>
-                        <button class="option-btn ${answers[currentQuestion] === 0 ? 'selected' : ''}" 
-                                onclick="selectAnswer(0)">아니오</button>
+                        <button class="option-btn" onclick="selectAnswer(${currentQuestion}, 1)">예</button>
+                        <button class="option-btn" onclick="selectAnswer(${currentQuestion}, 0)">아니오</button>
                     </div>
                 </div>
             `;
         }
 
         // 답변 선택 함수
-        function selectAnswer(value) {
-            answers[currentQuestion] = value;
+        function selectAnswer(questionIndex, answer) {
+            answers[questionIndex] = answer;
             updateProgress();
             
             // 버튼 스타일 업데이트
