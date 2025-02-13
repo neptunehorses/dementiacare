@@ -262,8 +262,7 @@
             "물건을 놓은 곳을 자주 잊어버리시나요?",
             "평소에 하시던 일상적인 일들이 갑자기 어렵게 느껴지시나요?"
         ];
-    </script>
-    <script>
+
         let currentQuestion = 0;
         let answers = new Array(questions.length).fill(null);
 
@@ -305,16 +304,16 @@
                     <div class="question-number">질문 ${currentQuestion + 1}/${questions.length}</div>
                     <p>${questions[currentQuestion]}</p>
                     <div class="options">
-                        <button class="option-btn" onclick="selectAnswer(${currentQuestion}, 1)">예</button>
-                        <button class="option-btn" onclick="selectAnswer(${currentQuestion}, 0)">아니오</button>
+                        <button class="option-btn" onclick="selectAnswer(1)">예</button>
+                        <button class="option-btn" onclick="selectAnswer(0)">아니오</button>
                     </div>
                 </div>
             `;
         }
 
         // 답변 선택 함수
-        function selectAnswer(questionIndex, answer) {
-            answers[questionIndex] = answer;
+        function selectAnswer(value) {
+            answers[currentQuestion] = value;
             updateProgress();
             
             // 버튼 스타일 업데이트
@@ -342,20 +341,19 @@
                 // 다음 질문으로
                 currentQuestion++;
                 renderQuestion();
-                document.querySelector('.question-item').style.animation = 'fadeIn 0.5s ease-out';
             }
         }
 
-        // 초기화
+        // 페이지 로드 시 실행
         document.addEventListener('DOMContentLoaded', () => {
-            // 저장된 답변 복원
-            const savedAnswers = localStorage.getItem('examAnswers');
-            if (savedAnswers) {
-                const parsedAnswers = JSON.parse(savedAnswers);
-                if (Array.isArray(parsedAnswers) && parsedAnswers.length === questions.length) {
-                    answers = parsedAnswers;
-                }
-            }
+            // 로컬 스토리지 초기화
+            localStorage.removeItem('examAnswers');
+            localStorage.removeItem('examScore');
+            localStorage.removeItem('examDate');
+            
+            // 답변 배열 초기화
+            answers = new Array(questions.length).fill(null);
+            currentQuestion = 0;
             
             renderQuestion();
             updateProgress();
