@@ -12,9 +12,28 @@
     <div class="container">
         <div class="results-box">
             <h1>검사 결과</h1>
-            <div id="result-content" class="result-content">
+            <div class="result-content">
                 <!-- 결과는 JavaScript로 삽입됩니다 -->
+                <div class="result-message">
+                    <div class="result-header warning">
+                        <h2>위험도: 높음</h2>
+                        <p>치매의 위험이 높습니다. 전문가의 상담을 권장합니다.</p>
+                    </div>
+                    <div class="result-detail">
+                        <p>검사 날짜: <span class="exam-date">2023-10-01</span></p>
+                        <p>검사 결과에 대한 자세한 설명이 여기에 들어갑니다.</p>
+                    </div>
+                    <div class="risk-level">
+                        <div class="risk-bar high"></div>
+                    </div>
+                </div>
             </div>
+
+            <!-- '다시 검사하기' 버튼 추가 -->
+            <div class="action-buttons">
+                <button onclick="resetAndRetakeExam()" class="action-btn retry">다시 검사하기</button>
+            </div>
+
             <div class="recommendations">
                 <h2>추천 사항</h2>
                 <div class="recommendation-list">
@@ -32,6 +51,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="hospital-finder">
                 <h2>가까운 치매 전문병원 찾기</h2>
                 <div class="search-box">
@@ -53,9 +73,21 @@
                 <div id="map" class="map"></div>
                 <div id="hospital-list" class="hospital-list"></div>
             </div>
-            <div class="action-buttons">
-                <button onclick="resetAndRetakeExam()" class="action-btn retry">다시 검사하기</button>
-                <button onclick="location.href='/care-guide'" class="action-btn guide">케어 가이드</button>
+
+            <!-- 메인 페이지의 하단부 버튼 추가 -->
+            <div class="navigation-buttons">
+                <button onclick="location.href='/care-guide'" class="nav-btn">케어 가이드</button>
+                <button onclick="location.href='/hospital-finder'" class="nav-btn">병원 찾기</button>
+                <button onclick="location.href='/community'" class="nav-btn">커뮤니티</button>
+            </div>
+
+            <div class="back-button-wrapper">
+                <button onclick="location.href='/'" class="back-btn">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 12H5M12 19l-7-7 7-7"/>
+                    </svg>
+                    메인으로 돌아가기
+                </button>
             </div>
         </div>
     </div>

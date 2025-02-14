@@ -1,0 +1,140 @@
+.info-box {
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 50px;
+    border-radius: 40px;
+    box-shadow: 0 25px 50px -12px rgba(252, 182, 159, 0.25);
+    max-width: 900px;
+    width: 100%;
+    margin: 20px;
+    backdrop-filter: blur(10px);
+}
+
+.info-content {
+    text-align: center;
+}
+
+h1 {
+    color: #2c3e50;
+    font-size: 2.2em;
+    margin-bottom: 40px;
+    line-height: 1.4;
+}
+
+.message-box {
+    background: linear-gradient(45deg, #fff5f5 0%, #fff0f0 100%);
+    padding: 30px;
+    border-radius: 20px;
+    margin-bottom: 50px;
+    border: 2px solid #ffd1d1;
+}
+
+.highlight {
+    color: #ff9a9e;
+    font-size: 1.4em;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.info-sections {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin: 40px 0;
+}
+
+.info-section {
+    padding: 30px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+}
+
+.info-section:hover {
+    transform: translateY(-5px);
+}
+
+.icon {
+    font-size: 2.5em;
+    margin-bottom: 15px;
+}
+
+.info-section h3 {
+    color: #2c3e50;
+    margin-bottom: 15px;
+    font-size: 1.2em;
+}
+
+.info-section p {
+    color: #666;
+    line-height: 1.6;
+}
+
+.cta-box {
+    background: linear-gradient(45deg, #ff9a9e 0%, #fad0c4 100%);
+    padding: 40px;
+    border-radius: 25px;
+    color: white;
+    margin: 50px 0 30px;
+}
+
+.cta-box p {
+    font-size: 1.4em;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.sub-text {
+    font-size: 1em !important;
+    opacity: 0.9;
+    margin-bottom: 25px !important;
+}
+
+.cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 30px;
+    background: white;
+    border: none;
+    border-radius: 15px;
+    color: #ff9a9e;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.cta-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+    .info-box {
+        padding: 30px;
+        margin: 15px;
+        border-radius: 30px;
+    }
+
+    h1 {
+        font-size: 1.8em;
+    }
+
+    .message-box {
+        padding: 20px;
+    }
+
+    .highlight {
+        font-size: 1.2em;
+    }
+
+    .info-sections {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .cta-box {
+        padding: 30px 20px;
+    }
+} 

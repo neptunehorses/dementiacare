@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>치매 전문병원 찾기</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="hospital-finder.css">
+    <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=YOUR_CLIENT_ID&submodules=geocoder"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="hospital-finder-box">
+            <h1>치매 전문병원 찾기</h1>
+            
+            <div class="search-section">
+                <div class="search-box">
+                    <input type="text" id="address" placeholder="주소 또는 지역명을 입력하세요" class="search-input">
+                    <button onclick="searchAddress()" class="search-btn">검색</button>
+                    <button onclick="getCurrentLocation()" class="location-btn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="8"/>
+                            <circle cx="12" cy="12" r="3"/>
+                        </svg>
+                        현재 위치
+                    </button>
+                </div>
+                
+                <div class="filter-box">
+                    <select id="hospital-type" class="filter-select">
+                        <option value="all">모든 병원</option>
+                        <option value="dementia">치매 전문병원</option>
+                        <option value="neurology">신경과</option>
+                        <option value="center">치매안심센터</option>
+                    </select>
+                    <select id="distance" class="filter-select">
+                        <option value="1">1km 이내</option>
+                        <option value="3">3km 이내</option>
+                        <option value="5" selected>5km 이내</option>
+                        <option value="10">10km 이내</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="content-wrapper">
+                <div id="map" class="map"></div>
+                
+                <div class="hospital-list-wrapper">
+                    <div class="list-header">
+                        <h3>주변 병원 목록</h3>
+                        <select id="sort-by" class="sort-select">
+                            <option value="distance">거리순</option>
+                            <option value="rating">평가순</option>
+                        </select>
+                    </div>
+                    <div id="hospital-list" class="hospital-list">
+                        <!-- 병원 목록은 JavaScript로 동적 생성됩니다 -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="back-button-wrapper">
+                <button onclick="location.href='/'" class="back-btn">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 12H5M12 19l-7-7 7-7"/>
+                    </svg>
+                    메인으로 돌아가기
+                </button>
+            </div>
+        </div>
+    </div>
+    <script src="hospital-finder.js"></script>
+</body>
+</html> 
